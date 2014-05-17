@@ -1,10 +1,12 @@
-Yii2 Brazilian Validators
+Yii Brazilian Validators
 =========================
 
-Yii2 Extension that provide validators and features for brazilian localization
+Yii 1.1 Extension that provides validators for Brazilian localization.
 
-* CPF: Cadastro de pessoa física (like a Security Social Numeber in USA) 
-* CNPJ: Cadastro nacional de pessoa jurídica 
+* CPF: Cadastro de Pessoa Física (like a Security Social Number in USA) 
+* CNPJ: Cadastro Nacional de Pessoa Jurídica
+* landlines: beginning with 2 and 3
+* cellphones: 9 digits or 8 digits beginning with 7, 8 or 9
 
 Installation
 ------------
@@ -14,48 +16,60 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist yiibr/yii2-br-validator "*"
+php composer.phar require --prefer-dist igorsantos07/yii-br-validator:1.*
 ```
 
-or add
+or add this to the "require" section of your `composer.json` file.
 
 ```
-"yiibr/yii2-br-validator": "*"
+"yiibr/yii-br-validator": "1.*"
 ```
-
-to the require section of your `composer.json` file.
 
 Usage
 -----
-Add the rules as the following example
 
+Add the rules as the following example
 
 ```php
 
-use Yii;
-use yii\base\Model;
-use yiibr\brvalidator\CpfValidator;
-use yiibr\brvalidator\CnpjValidator;
+class PersonForm extends CModel {
 
-class PersonForm extends Model
-{
-	public $name;
 	public $cpf;
 	public $cnpj;
+	public $cellphone;
+	public $landline;
+	public $phone;
+	public $areaCode;
 
-	/**
-	 * @return array the validation rules.
-	 */
-	public function rules()
-	{
-		return [
-			// name is required
-			['name', 'required'],
-			// cpf validator
-			['cpf', CpfValidator::className()],
-			// cnpj validator
-			['cnpj', CnpjValidator::className()],
-		];
+	// For maximum readability, you should create an alias for the validator folder :)
+	// Here we are assuming you have at least an alias for your vendor folder.
+	public function rules() {
+		return array(
+			// CPF validator
+			array('cpf', 'vendor.igorsantos07.yii-br-validator.CpfValidator'),
+			// CNPJ validator
+			array('cnpj', 'vendor.igorsantos07.yii-br-validator.CnpjValidator'),
+			// Cellphone-only validator, checking area code inside the field
+			array('cellphone', 'vendor.igorsantos07.yii-br-validator.PhoneValidator', 'type' => PhoneValidator::TYPE_CELLPHONE),
+                        // Cellphone-only validator, not validating area code
+                        array(
+				'cellphone',
+				'vendor.igorsantos07.yii-br-validator.PhoneValidator',
+				'type'     => PhoneValidator::TYPE_CELLPHONE,
+				'areaCode' => false
+			),
+                        // Landline-only validator
+                        array('landline', 'vendor.igorsantos07.yii-br-validator.PhoneValidator', 'type' => PhoneValidator::TYPE_LANDLINE),
+                        // Any phone validator - cellphone or landline
+                        array('phone', 'vendor.igorsantos07.yii-br-validator.PhoneValidator'),
+                        // Cellphone validator with external area code check
+                        array(
+				'cellphone',
+				'vendor.igorsantos07.yii-br-validator.PhoneValidator',
+				'type'              => PhoneValidator::TYPE_CELLPHONE,
+				'areaCodeAttribute' => 'areaCode'
+			),
+		);
 	}
 }
 ```
