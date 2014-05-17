@@ -65,19 +65,22 @@ class CpfValidator extends CValidator {
 
 	/**
 	 * @inheritdoc
+	 * @todo NOT YET MIGRATED! :(
 	 */
 	public function clientValidateAttribute($object, $attribute, $view) {
-		$options = array(
-			'message' => Yii::app()->getI18n()->format($this->message, array(
-					'attribute' => $object->getAttributeLabel($attribute),
-				), Yii::app()->language),
-		);
+		return;
 
-		if ($this->skipOnEmpty) {
-			$options['skipOnEmpty'] = 1;
-		}
-
-		ValidationAsset::register($view);
-		return 'igorsantos07.validation.cpf(value, messages, '.CJSON::encode($options).');';
+//		$options = array(
+//			'message' => Yii::app()->getI18n()->format($this->message, array(
+//					'attribute' => $object->getAttributeLabel($attribute),
+//				), Yii::app()->language),
+//		);
+//
+//		if ($this->skipOnEmpty) {
+//			$options['skipOnEmpty'] = 1;
+//		}
+//
+//		ValidationAsset::register($view);
+//		return 'igorsantos07.validation.cpf(value, messages, '.CJSON::encode($options).');';
 	}
 }

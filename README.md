@@ -11,7 +11,7 @@ Yii 1.1 Extension that provides validators for Brazilian localization.
 Installation
 ------------
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
 
 Either run
 
@@ -28,7 +28,7 @@ or add this to the "require" section of your `composer.json` file.
 Usage
 -----
 
-Add the rules as the following example
+Add the rules as the following example:
 
 ```php
 

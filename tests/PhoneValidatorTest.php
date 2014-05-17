@@ -1,6 +1,9 @@
 <?php
 require_once 'TestCase.php';
 
+/**
+ * @todo Missing validation for external area codes
+ */
 class PhoneValidatorTest extends TestCase {
 
 	public function testEmpty() {
