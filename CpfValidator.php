@@ -1,82 +1,83 @@
 <?php
 /**
- * @link https://github.com/yiibr/yii2-br-validator
- * @license https://github.com/yiibr/yii2-br-validator/blob/master/LICENSE
+ * @link    https://github.com/igorsantos07/yii-br-validator
+ * @license https://github.com/igorsantos07/yii-br-validator/blob/master/LICENSE
  */
-namespace yiibr\brvalidator;
-
-use Yii;
-use yii\validators\Validator;
-use yii\helpers\Json;
 
 /**
  * CpfValidator checks if the attribute value is a valid CPF.
  *
+ * @author Igor Santos <igorsantos07@gmail.com>
  * @author Leandro Gehlen <leandrogehlen@gmail.com>
  * @author Wanderson Bragança <wanderson.wbc@gmail.com>
  */
-class CpfValidator extends Validator
-{
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        parent::init();
-        if ($this->message === null) {
-            $this->message = Yii::t('yii', "{attribute} is invalid.");
-        }
-    }
+class CpfValidator extends CValidator {
 
-    /**
-     * @inheritdoc
-     */
-    protected function validateValue($value)
-    {
-        $valid = true;
-        $cpf = str_pad(preg_replace('/[^0-9_]/', '', $value ), 11, '0', STR_PAD_LEFT);
+	public $allowEmpty;
 
-        for($x = 0; $x < 10; $x ++) {
-            if ($cpf == str_repeat ( $x, 11 )) {
-                $valid = false;
-            }
-        }
-        if ($valid) {
-            if (strlen ( $cpf ) != 11) {
-                $valid = false;
-            } else {
-                for ($t = 9; $t < 11; $t ++) {
-                    $d = 0;
-                    for($c = 0; $c < $t; $c ++) {
-                        $d += $cpf {$c} * (($t + 1) - $c);
-                    }
-                    $d = ((10 * $d) % 11) % 10;
-                    if ($cpf{$c} != $d) {
-                        $valid = false;
-                        break;
-                    }
-                }
-            }
-        }
-        return ($valid) ? [] : [$this->message, []];
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public function __construct() {
+		if ($this->message === null) {
+			$this->message = Yii::t('yii', '{attribute} is invalid.');
+		}
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public function clientValidateAttribute($object, $attribute, $view)
-    {
-        $options = [
-            'message' => Yii::$app->getI18n()->format($this->message, [
-                'attribute' => $object->getAttributeLabel($attribute),
-            ], Yii::$app->language),
-        ];
+	/**
+	 * @inheritdoc
+	 */
+	protected function validateAttribute($object, $attribute) {
+		if (!$object->$attribute && $this->allowEmpty) return;
 
-        if ($this->skipOnEmpty) {
-            $options['skipOnEmpty'] = 1;
-        }
+		$valid = true;
+		$cpf   = str_pad(preg_replace('/[^0-9_]/', '', $object->$attribute), 11, '0', STR_PAD_LEFT);
 
-        ValidationAsset::register($view);
-        return 'yiibr.validation.cpf(value, messages, ' . Json::encode($options) . ');';
-    }
+		for ($x = 0; $x <= 9; $x++) {
+			if ($cpf == str_repeat($x, 11)) {
+				$valid = false;
+			}
+		}
+
+		if ($valid) {
+			if (strlen($cpf) != 11) {
+				$valid = false;
+			}
+			else {
+				for ($t = 9; $t < 11; $t++) {
+					$d = 0;
+					for ($c = 0; $c < $t; $c++) {
+						$d += $cpf{$c} * (($t + 1) - $c);
+					}
+					$d = ((10 * $d) % 11) % 10;
+					if ($cpf{$c} != $d) {
+						$valid = false;
+						break;
+					}
+				}
+			}
+		}
+
+		if (!$valid) {
+			$this->addError($object, $attribute, $this->message);
+		}
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function clientValidateAttribute($object, $attribute, $view) {
+		$options = array(
+			'message' => Yii::app()->getI18n()->format($this->message, array(
+					'attribute' => $object->getAttributeLabel($attribute),
+				), Yii::app()->language),
+		);
+
+		if ($this->skipOnEmpty) {
+			$options['skipOnEmpty'] = 1;
+		}
+
+		ValidationAsset::register($view);
+		return 'igorsantos07.validation.cpf(value, messages, '.CJSON::encode($options).');';
+	}
 }
