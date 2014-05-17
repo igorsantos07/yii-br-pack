@@ -1,5 +1,6 @@
 .buildpath
+.idea
+.nbproject
 .project
 .settings
 /vendor
-/*.lock
