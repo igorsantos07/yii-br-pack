@@ -67,9 +67,9 @@ class CpfValidator extends CValidator {
 	 * @inheritdoc
 	 * @todo NOT YET MIGRATED! :(
 	 */
-	public function clientValidateAttribute($object, $attribute, $view) {
-		return;
-
+//	public function clientValidateAttribute($object, $attribute) {
+//		return;
+//
 //		$options = array(
 //			'message' => Yii::app()->getI18n()->format($this->message, array(
 //					'attribute' => $object->getAttributeLabel($attribute),
@@ -82,5 +82,5 @@ class CpfValidator extends CValidator {
 //
 //		ValidationAsset::register($view);
 //		return 'igorsantos07.validation.cpf(value, messages, '.CJSON::encode($options).');';
-	}
+//	}
 }
