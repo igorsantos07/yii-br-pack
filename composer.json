@@ -4,16 +4,11 @@
 	"keywords":          ["yii", "validator", "model", "brasil", "brazil", "br", "cpf", "cnpj", "phone", "landline", "cellphone"],
 	"type":              "yii-extension",
 	"license":           "BSD-3-Clause",
-	"support":           {
-		"email":  "igorsantos07+dev@gmail.com",
-		"issues": "https://github.com/igorsantos07/yii-br-validator/issues",
-		"source": "https://github.com/igorsantos07/yii-br-validator"
-	},
 	"minimum-stability": "dev",
 	"authors":           [
 		{
 			"name":     "Igor Santos",
-			"email":    "igorsantos07@gmail.com",
+			"email":    "igorsantos07+dev@gmail.com",
 			"homepage": "http://www.igorsantos.com.br"
 		}
 	],
