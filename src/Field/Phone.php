@@ -1,5 +1,7 @@
 <?php
-class PhoneField extends CMaskedTextField {
+namespace BrPack\Field;
+
+class Phone extends \CMaskedTextField {
 
 	/**
 	 * One of "landline", "mobile" or "area". Defaults to 'landline'.
@@ -34,7 +36,7 @@ class PhoneField extends CMaskedTextField {
 				break;
 
 			default:
-				throw new CException(Yii::t('yii',
+				throw new \CException(Yii::t('yii',
 					'Property PhoneField.type should be one of "landline", "mobile" or "area".'));
 		}
 

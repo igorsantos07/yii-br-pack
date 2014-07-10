@@ -1,5 +1,7 @@
 <?php
-class GenericDocField extends CMaskedTextField {
+namespace BrPack\Field;
+
+class GenericDoc extends \CMaskedTextField {
 
 	/**
 	 * If it should show a placeholder. Defaults to true.

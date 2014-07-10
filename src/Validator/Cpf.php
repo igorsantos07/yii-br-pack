@@ -1,8 +1,5 @@
 <?php
-/**
- * @link    https://github.com/igorsantos07/yii-br-pack
- * @license https://github.com/igorsantos07/yii-br-pack/blob/master/LICENSE
- */
+namespace BrPack\Validator;
 
 /**
  * CpfValidator checks if the attribute value is a valid CPF.
@@ -11,7 +8,7 @@
  * @author Leandro Gehlen <leandrogehlen@gmail.com>
  * @author Wanderson Bragança <wanderson.wbc@gmail.com>
  */
-class CpfValidator extends CValidator {
+class Cpf extends \CValidator {
 
 	public $allowEmpty;
 
@@ -20,7 +17,7 @@ class CpfValidator extends CValidator {
 	 */
 	public function __construct() {
 		if ($this->message === null) {
-			$this->message = Yii::t('yii', '{attribute} is invalid.');
+			$this->message = \Yii::t('yii', '{attribute} is invalid.');
 		}
 	}
 

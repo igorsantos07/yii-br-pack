@@ -1,15 +1,13 @@
 <?php
-/**
- * @link    https://github.com/igorsantos07/yii-br-pack
- * @license https://github.com/igorsantos07/yii-br-pack/blob/master/LICENSE
- */
+namespace BrPack\Validator;
 
 /**
  * PhoneValidator checks if the attribute value is a valid brazilian phone number.
  *
+ * @package BrPack.Validator
  * @author Igor Santos <igorsantos07@gmail.com>
  */
-class PhoneValidator extends CValidator {
+class Phone extends \CValidator {
 
 	const TYPE_LANDLINE = 'landline';
 
@@ -82,7 +80,7 @@ class PhoneValidator extends CValidator {
 
 	public function __construct() {
 		if ($this->message === null) {
-			$this->message = Yii::t('yii', '{attribute} is invalid.');
+			$this->message = \Yii::t('yii', '{attribute} is invalid.');
 		}
 	}
 
@@ -94,7 +92,7 @@ class PhoneValidator extends CValidator {
 			return;
 
 		if (!in_array($this->type, array(self::TYPE_BOTH, self::TYPE_CELLPHONE, self::TYPE_LANDLINE)))
-			throw new CException('Validator expects "type" property to be one of PhoneValidator::TYPE_* constants');
+			throw new \CException('Validator expects "type" property to be one of PhoneValidator::TYPE_* constants');
 
 		$number = preg_replace('/[^0-9_]/', '', $object->$attribute);
 
@@ -115,7 +113,7 @@ class PhoneValidator extends CValidator {
 		if (!$this->{'validate'.ucfirst($this->type)}($area, $number)) {
 			$total = sizeof($this->errors);
 			for ($i = 0; $i < $total; $i++)
-				$this->addError($object, $attribute, Yii::t('yii', array_shift($this->errors)));
+				$this->addError($object, $attribute, \Yii::t('yii', array_shift($this->errors)));
 		}
 	}
 
@@ -173,7 +171,7 @@ class PhoneValidator extends CValidator {
 		if ($this->validateLandline($area, $number)) {
 			return true;
 		}
-		else{
+		else {
 			$landline_errors = $this->errors;
 			$this->errors = array();
 			$valid_cellphone = $this->validateCellphone($area, $number);

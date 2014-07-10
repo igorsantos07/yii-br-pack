@@ -1,5 +1,7 @@
 <?php
-class CardField extends CMaskedTextField {
+namespace BrPack\Field;
+
+class Card extends \CMaskedTextField {
 
 	/**
 	 * One of "pan", "expiry" or "cvv". Can be guessed from the attribute name.
@@ -39,7 +41,7 @@ class CardField extends CMaskedTextField {
 			break;
 
 			default:
-				throw new CException(Yii::t('yii', 'Could not guess CardField type nor CardField.type is defined.'));
+				throw new \CException(Yii::t('yii', 'Could not guess CardField type nor CardField.type is defined.'));
 		}
 
 		if ($this->showPlaceholder)

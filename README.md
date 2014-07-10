@@ -1,5 +1,5 @@
-Yii Brazilian Validators
-=========================
+Yii Brazilian Package
+=====================
 
 Yii 1.1 Extension that provides validators and fields for Brazilian localization.
 

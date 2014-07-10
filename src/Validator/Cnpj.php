@@ -1,8 +1,5 @@
 <?php
-/**
- * @link    https://github.com/igorsantos07/yii-br-pack
- * @license https://github.com/igorsantos07/yii-br-pack/blob/master/LICENSE
- */
+namespace BrPack\Validator;
 
 /**
  * CnpjValidator checks if the attribute value is a valid CNPJ.
@@ -10,13 +7,13 @@
  * @author Igor Santos <igorsantos07@gmail.com>
  * @author Leandro Gehlen <leandrogehlen@gmail.com>
  */
-class CnpjValidator extends CValidator {
+class Cnpj extends \CValidator {
 
 	public $allowEmpty;
 
 	public function __construct() {
 		if ($this->message === null) {
-			$this->message = Yii::t('yii', '{attribute} is invalid.');
+			$this->message = \Yii::t('yii', '{attribute} is invalid.');
 		}
 	}
 
