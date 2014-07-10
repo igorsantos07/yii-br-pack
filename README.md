@@ -13,7 +13,10 @@ Installation
 
 The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
 
-Either run
+[![Latest Stable Version](https://poser.pugx.org/igorsantos07/yii-br-validator/v/stable.svg)](https://packagist.org/packages/igorsantos07/yii-br-validator)
+[![Total Downloads](https://poser.pugx.org/igorsantos07/yii-br-validator/downloads.svg)](https://packagist.org/packages/igorsantos07/yii-br-validator)
+
+Either run this:
 
 ```
 php composer.phar require --prefer-dist igorsantos07/yii-br-validator:1.*
