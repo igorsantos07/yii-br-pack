@@ -34,45 +34,44 @@ Usage
 Add the rules as the following example:
 
 ```php
-
 class PersonForm extends CModel {
 
-	public $cpf;
-	public $cnpj;
-	public $cellphone;
-	public $landline;
-	public $phone;
-	public $areaCode;
+  public $cpf;
+  public $cnpj;
+  public $cellphone;
+  public $landline;
+  public $phone;
+  public $areaCode;
 
-	// For maximum readability, you should create an alias for the validator folder :)
-	// Here we are assuming you have at least an alias for your vendor folder.
-	public function rules() {
-		return array(
-			// CPF validator
-			array('cpf', 'vendor.igorsantos07.yii-br-validator.CpfValidator'),
-			// CNPJ validator
-			array('cnpj', 'vendor.igorsantos07.yii-br-validator.CnpjValidator'),
-			// Cellphone-only validator, checking area code inside the field
-			array('cellphone', 'vendor.igorsantos07.yii-br-validator.PhoneValidator', 'type' => PhoneValidator::TYPE_CELLPHONE),
-                        // Cellphone-only validator, not validating area code
-                        array(
-				'cellphone',
-				'vendor.igorsantos07.yii-br-validator.PhoneValidator',
-				'type'     => PhoneValidator::TYPE_CELLPHONE,
-				'areaCode' => false
-			),
-                        // Landline-only validator
-                        array('landline', 'vendor.igorsantos07.yii-br-validator.PhoneValidator', 'type' => PhoneValidator::TYPE_LANDLINE),
-                        // Any phone validator - cellphone or landline
-                        array('phone', 'vendor.igorsantos07.yii-br-validator.PhoneValidator'),
-                        // Cellphone validator with external area code check
-                        array(
-				'cellphone',
-				'vendor.igorsantos07.yii-br-validator.PhoneValidator',
-				'type'              => PhoneValidator::TYPE_CELLPHONE,
-				'areaCodeAttribute' => 'areaCode'
-			),
-		);
-	}
+  // For maximum readability, you should create an alias for the validator folder :)
+  // Here we are assuming you have at least an alias for your vendor folder.
+  public function rules() {
+    return array(
+      // CPF validator
+      array('cpf', 'vendor.igorsantos07.yii-br-validator.CpfValidator'),
+      // CNPJ validator
+      array('cnpj', 'vendor.igorsantos07.yii-br-validator.CnpjValidator'),
+      // Cellphone-only validator, checking area code inside the field
+      array('cellphone', 'vendor.igorsantos07.yii-br-validator.PhoneValidator', 'type' => PhoneValidator::TYPE_CELLPHONE),
+      // Cellphone-only validator, not validating area code
+      array(
+        'cellphone',
+        'vendor.igorsantos07.yii-br-validator.PhoneValidator',
+        'type'     => PhoneValidator::TYPE_CELLPHONE,
+        'areaCode' => false
+      ),
+      // Landline-only validator
+      array('landline', 'vendor.igorsantos07.yii-br-validator.PhoneValidator', 'type' => PhoneValidator::TYPE_LANDLINE),
+      // Any phone validator - cellphone or landline
+      array('phone', 'vendor.igorsantos07.yii-br-validator.PhoneValidator'),
+      // Cellphone validator with external area code check
+      array(
+        'cellphone',
+        'vendor.igorsantos07.yii-br-validator.PhoneValidator',
+        'type'              => PhoneValidator::TYPE_CELLPHONE,
+        'areaCodeAttribute' => 'areaCode'
+      ),
+    );
+  }
 }
 ```
