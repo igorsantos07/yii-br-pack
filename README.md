@@ -37,8 +37,11 @@ Usage
 
 Add the rules as the following example:
 
+> models/PersonForm.php
 ```php
 class PersonForm extends CModel {
+
+  public $name;
 
   public $cpf;
   public $cnpj;
@@ -47,36 +50,70 @@ class PersonForm extends CModel {
   public $phone;
   public $areaCode;
 
-  // For maximum readability, you should create an alias for the validator folder :)
-  // Here we are assuming you have at least an alias for your vendor folder.
+  public $card_number;
+  public $card_cvv;
+  public $card_expiry;
+
   public function rules() {
     // Using short array notation but the class is PHP <5.4 compatible ;)
     return [
       // CPF validator
-      ['cpf', 'vendor.igorsantos07.yii-br-pack.CpfValidator'],
+      ['cpf', 'BrPack\Validator\Cpf'],
       // CNPJ validator
-      ['cnpj', 'vendor.igorsantos07.yii-br-pack.CnpjValidator'],
+      ['cnpj', 'BrPack\Validator\Cnpj'],
       // Cellphone-only validator, checking area code inside the field
-      ['cellphone', 'vendor.igorsantos07.yii-br-pack.PhoneValidator', 'type' => PhoneValidator::TYPE_CELLPHONE],
+      ['cellphone', 'BrPack\Validator\Phone', 'type' => PhoneValidator::TYPE_CELLPHONE],
       // Cellphone-only validator, not validating area code
       [
         'cellphone',
-        'vendor.igorsantos07.yii-br-pack.PhoneValidator',
-        'type'     => PhoneValidator::TYPE_CELLPHONE,
+        'BrPack.PhoneValidator',
+        'type'     => BrPack\Validator\Phone::TYPE_CELLPHONE,
         'areaCode' => false
       ],
       // Landline-only validator
-      ['landline', 'vendor.igorsantos07.yii-br-pack.PhoneValidator', 'type' => PhoneValidator::TYPE_LANDLINE],
+      ['landline', 'BrPack\Validator\Phone', 'type' => BrPack\Validator\Phone::TYPE_LANDLINE],
       // Any phone validator - cellphone or landline
-      ['phone', 'vendor.igorsantos07.yii-br-pack.PhoneValidator'],
+      ['phone', 'BrPack\Validator\Phone'],
       // Cellphone validator with external area code check
       [
         'cellphone',
-        'vendor.igorsantos07.yii-br-pack.PhoneValidator',
-        'type'              => PhoneValidator::TYPE_CELLPHONE,
+        'BrPack\Validator\Phone',
+        'type'              => BrPack\Validator\Phone::TYPE_CELLPHONE,
         'areaCodeAttribute' => 'areaCode'
       ],
     ];
   }
 }
+```
+
+> views/person/new.php
+```php
+<?php $form = $this->beginWidget('CActiveForm, ['id' => 'my-person-form']) ?>
+
+    <?=$form->label($model, 'name')?>
+    <?=$form->textField($model, 'name')?>
+    <?=$form->error($model, 'name')?>
+    <br/>
+
+    <?=$form->label($model, 'cpf')?>
+    <?php $this->widget('BrPack\Field\Cpf', ['model' => $model, 'attribute' => 'cpf']) ?>
+    <?=$form->error($model, 'cpf')?>
+    <br/>
+
+    <?=$form->label($model, 'cellphone')?>
+    <?php $this->widget('BrPack\Field\Phone', ['model' => $model, 'attribute' => 'cellphone', 'type' => 'mobile']) ?>
+    <?=$form->error($model, 'cpf')?>
+    <br/>
+
+    <?=$form->label($model, 'card_number')?>
+    <?php $this->widget('BrPack\Field\Card', ['model' => $model, 'attribute' => 'card_number']) ?>
+    <?php $this->widget('BrPack\Field\Card', ['model' => $model, 'attribute' => 'card_expiry']) ?>
+    <?php $this->widget('BrPack\Field\Card', ['model' => $model, 'attribute' => 'card_cvv']) ?>
+    <?=$form->error($model, 'card_number')?>
+    <?=$form->error($model, 'card_expiry')?>
+    <?=$form->error($model, 'card_cvv')?>
+    <br/>
+
+    <?=CHtml::submitButton()?>
+<?php $this->endWidget() ?>
 ```
