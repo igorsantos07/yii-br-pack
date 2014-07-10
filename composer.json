@@ -1,10 +1,15 @@
 {
-	"name":              "igorsantos07/yii-br-validator",
-	"description":       "Provide validations and features for brazilian localization on Yii 1.1.*",
-	"keywords":          ["yii", "validator", "model", "brasil", "brazil", "br", "cpf", "cnpj", "phone", "landline", "cellphone"],
+	"name":              "igorsantos07/yii-br-pack",
+	"description":       "Provide validations and easy masked fields for brazilian localization on Yii 1.1.*",
 	"type":              "yii-extension",
 	"license":           "BSD-3-Clause",
 	"minimum-stability": "dev",
+	"prefer-stable":     true,
+	"keywords":          [
+		"yii", "validator", "model", "brasil", "brazil", "br", "cpf", "cnpj", "phone", "landline", "cellphone",
+       		"form", "field", "credit card"
+	],
+
 	"authors":           [
 		{
 			"name":     "Igor Santos",
@@ -16,7 +21,17 @@
 	"require":     {
 		"yiisoft/yii": "1.1.*"
 	},
+
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*"
+	},
+
+	"conflict": {	"igorsantos07/yii-br-validator": "*" },
+	"replace": {	"igorsantos07/yii-br-validator": "*" },
+
+	"autoload": {
+		"psr-4": {
+			"\\": "src/"
+		}
 	}
 }
