@@ -1,7 +1,7 @@
 <?php
 /**
- * @link    https://github.com/igorsantos07/yii-br-validator
- * @license https://github.com/igorsantos07/yii-br-validator/blob/master/LICENSE
+ * @link    https://github.com/igorsantos07/yii-br-pack
+ * @license https://github.com/igorsantos07/yii-br-pack/blob/master/LICENSE
  */
 
 /**
