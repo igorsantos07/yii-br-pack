@@ -1,7 +1,7 @@
 Yii Brazilian Package
 =====================
 
-Yii 1.1 Extension that provides validators and fields for Brazilian localization.
+Yii 1.1 Extension that provides various helpers for Brazilian localization.
 
 * Validators:
     - CPF: Cadastro de Pessoa Física (like a Security Social Number in USA) 
@@ -11,6 +11,10 @@ Yii 1.1 Extension that provides validators and fields for Brazilian localization
 * Fields:
     - CPF and CNPJ
     - Polymorphic credit card field - given the name it turns into a PAN, CVV or Expiry field
+* Formatter:
+	- CPF
+	- Phone with area code
+	- Money (alias of `NumberFormatter::formatCurrency()` which defaults to BRL
 
 Installation
 ------------
@@ -87,7 +91,7 @@ class PersonForm extends CModel {
 }
 ```
 
-> views/person/new.php
+> views/person/edit.php
 
 ```php
 <?php $form = $this->beginWidget('CActiveForm, ['id' => 'my-person-form']) ?>
@@ -97,11 +101,13 @@ class PersonForm extends CModel {
     <?=$form->error($model, 'name')?>
     <br/>
 
+	Current document: <?=Yii::app()->format->cpf('12365487588')?> // 123.654.875-88
     <?=$form->label($model, 'cpf')?>
     <?php $this->widget('BrPack\Field\Cpf', ['model' => $model, 'attribute' => 'cpf']) ?>
     <?=$form->error($model, 'cpf')?>
     <br/>
 
+	Current phone: <?=Yii::app()->format->phone('21996543354')?> // (21) 99654-3354
     <?=$form->label($model, 'cellphone')?>
     <?php $this->widget('BrPack\Field\Phone', ['model' => $model, 'attribute' => 'cellphone', 'type' => 'mobile']) ?>
     <?=$form->error($model, 'cpf')?>
@@ -114,6 +120,8 @@ class PersonForm extends CModel {
     <?=$form->error($model, 'card_number')?>
     <?=$form->error($model, 'card_expiry')?>
     <?=$form->error($model, 'card_cvv')?>
+
+    Amount to be charged in your card: <?=Yii::app()->format->money(9.99)?> // R$9,99
     <br/>
 
     <?=CHtml::submitButton()?>
