@@ -38,6 +38,7 @@ Usage
 Add the rules as the following example:
 
 > models/PersonForm.php
+
 ```php
 class PersonForm extends CModel {
 
@@ -66,7 +67,7 @@ class PersonForm extends CModel {
       // Cellphone-only validator, not validating area code
       [
         'cellphone',
-        'BrPack.PhoneValidator',
+        'BrPack\Validator\Phone',
         'type'     => BrPack\Validator\Phone::TYPE_CELLPHONE,
         'areaCode' => false
       ],
@@ -87,6 +88,7 @@ class PersonForm extends CModel {
 ```
 
 > views/person/new.php
+
 ```php
 <?php $form = $this->beginWidget('CActiveForm, ['id' => 'my-person-form']) ?>
 
