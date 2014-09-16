@@ -4,10 +4,10 @@ namespace BrPack\Field;
 class Phone extends \CMaskedTextField {
 
 	/**
-	 * One of "landline", "mobile" or "area". Defaults to 'landline'.
+	 * One of "landline", "mobile", "both" or "area". Defaults to 'both'.
 	 * @var string
 	 */
-	public $type = 'landline';
+	public $type = 'both';
 
 	/**
 	 * If it should show a placeholder. Defaults to true.
@@ -23,21 +23,22 @@ class Phone extends \CMaskedTextField {
 			case 'area':
 				$this->mask        = '99';
 				$this->placeholder = ' ';
-				break;
+			break;
 
 			case 'landline':
 				$this->mask        = '(99) 9999-9999';
 				$this->placeholder = '_';
-				break;
+			break;
 
+			case 'both':
 			case 'mobile':
 				$this->mask        = '(99) 9999-9999?9';
 				$this->placeholder = '_';
-				break;
+			break;
 
 			default:
-				throw new \CException(Yii::t('yii',
-					'Property PhoneField.type should be one of "landline", "mobile" or "area".'));
+				throw new \CException(\Yii::t('yii',
+					'Property PhoneField.type should be one of "landline", "mobile", "both" or "area".'));
 		}
 
 		if ($this->showPlaceholder)
