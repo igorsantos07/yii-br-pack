@@ -11,6 +11,7 @@ Yii 1.1 Extension that provides various helpers for Brazilian localization.
 * Fields:
     - CPF and CNPJ
     - Polymorphic credit card field - given the name it turns into a PAN, CVV or Expiry field
+    - Phone - landline, mobile, both, or area code only
 * Formatter:
 	- CPF
 	- Phone with area code
