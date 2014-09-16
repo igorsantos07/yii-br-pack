@@ -47,7 +47,7 @@ class Phone extends \CValidator {
 	 * Landline numbers begin with this list of digits.
 	 * @var array
 	 */
-	public $landlineBegin = array(2, 3);
+	public $landlineBegin = array(2, 3, 4);
 
 	/**
 	 * Cellphone numbers begin with this list of digits.
