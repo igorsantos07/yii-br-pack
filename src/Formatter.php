@@ -13,7 +13,7 @@ class Formatter extends \CLocalizedFormatter {
 		if (!preg_match('/^\d{10,11}$/', $number))
 			throw new \CException('Phone formatter expects a string with 10~11 digits (area code + 8~9 digits).');
 
-		return sprintf('(%d) %d-%d', substr($number, 0, 2), substr($number, 2, -4), substr($number, -4));
+		return sprintf('(%s) %s-%s', substr($number, 0, 2), substr($number, 2, -4), substr($number, -4));
 	}
 
 	/**
